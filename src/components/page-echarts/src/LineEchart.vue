@@ -1,0 +1,67 @@
+<template>
+  <base-echart :options="options" />
+</template>
+<script setup>
+import BaseEchart from "@/base-ui/echart"
+import { computed, defineProps } from "vue"
+
+const props = defineProps({
+  // title: String,
+  xLabels: Array,
+  values: Array,
+})
+
+const options = computed(() => {
+  return {
+    title: {
+      text: "",
+    },
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        type: "cross",
+        label: {
+          backgroundColor: "#6a7985",
+        },
+      },
+    },
+    legend: {},
+    toolbox: {
+      feature: {
+        saveAsImage: {},
+      },
+    },
+    grid: {
+      left: "3%",
+      right: "4%",
+      bottom: "3%",
+      containLabel: true,
+    },
+    xAxis: [
+      {
+        type: "category",
+        boundaryGap: false,
+        data: props.xLabels,
+      },
+    ],
+    yAxis: [
+      {
+        type: "value",
+      },
+    ],
+    series: [
+      {
+        name: "分别销量",
+        type: "line",
+        stack: "总量",
+        areaStyle: {},
+        emphasis: {
+          focus: "series",
+        },
+        data: props.values,
+      },
+    ],
+  }
+})
+</script>
+<style scoped lang="less"></style>
